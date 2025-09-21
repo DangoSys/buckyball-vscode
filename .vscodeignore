@@ -1,0 +1,37 @@
+# Source files
+src/**
+.vscode/**
+.vscode-test/**
+
+# Build files
+tsconfig.json
+webpack.config.js
+.eslintrc.json
+
+# Test files
+**/test/**
+**/*.test.ts
+**/*.test.js
+
+# Development files
+node_modules/**
+.gitignore
+.git/**
+.github/**
+
+# Documentation (keep README.md)
+DEPLOYMENT.md
+QUICK_TEST.md
+launch.json
+verify-implementation.js
+
+# Logs and temporary files
+*.log
+.DS_Store
+Thumbs.db
+
+# Package files
+*.vsix
+
+# Source maps (optional - remove if you want to include them)
+**/*.map

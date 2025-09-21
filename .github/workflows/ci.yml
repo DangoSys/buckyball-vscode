@@ -1,0 +1,124 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ published ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: bbdev/package-lock.json
+        
+    - name: Install dependencies
+      working-directory: ./bbdev
+      run: npm ci
+      
+    - name: Run linting
+      working-directory: ./bbdev
+      run: npm run lint:check
+      
+    - name: Compile TypeScript
+      working-directory: ./bbdev
+      run: npm run compile
+      
+    - name: Run unit tests
+      working-directory: ./bbdev
+      run: npm run test:unit
+      
+    - name: Run integration tests
+      working-directory: ./bbdev
+      run: |
+        export DISPLAY=:99
+        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+        npm run test:integration
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+        cache-dependency-path: bbdev/package-lock.json
+        
+    - name: Install dependencies
+      working-directory: ./bbdev
+      run: npm ci
+      
+    - name: Build extension
+      working-directory: ./bbdev
+      run: npm run build
+      
+    - name: Package VSIX
+      working-directory: ./bbdev
+      run: npm run package:vsix
+      
+    - name: Upload VSIX artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: bbdev-extension-${{ github.sha }}
+        path: bbdev/*.vsix
+        retention-days: 30
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [test, build]
+    if: github.event_name == 'release'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+        cache-dependency-path: bbdev/package-lock.json
+        
+    - name: Install dependencies
+      working-directory: ./bbdev
+      run: npm ci
+      
+    - name: Build and package
+      working-directory: ./bbdev
+      run: npm run package:vsix
+      
+    - name: Publish to VS Code Marketplace
+      working-directory: ./bbdev
+      run: npm run publish
+      env:
+        VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        
+    - name: Upload release asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: bbdev/bbdev-vscode-extension-*.vsix
+        asset_name: bbdev-vscode-extension.vsix
+        asset_content_type: application/zip

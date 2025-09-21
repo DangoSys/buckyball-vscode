@@ -1,0 +1,480 @@
+{
+  "name": "bbdev-vscode-extension",
+  "displayName": "BBDev",
+  "description": "Visual interface for bbdev development tool - manage hardware development workflows",
+  "version": "0.1.0",
+  "publisher": "buckyball",
+  "icon": "resources/icon.svg",
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "keywords": [
+    "bbdev",
+    "hardware",
+    "development",
+    "workflow",
+    "verilator",
+    "vcs",
+    "simulation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/buckyball/bbdev-vscode-extension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/buckyball/bbdev-vscode-extension/issues"
+  },
+  "homepage": "https://github.com/buckyball/bbdev-vscode-extension#readme",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "id": "bbdevCommands",
+          "name": "BBDev Commands",
+          "when": "workspaceHasFolder"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "bbdev.refreshCommands",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "bbdev.executeCommand",
+        "title": "Execute Command"
+      },
+      {
+        "command": "bbdev.executeOperation",
+        "title": "Execute Operation"
+      },
+      {
+        "command": "bbdev.startServer",
+        "title": "Start Server"
+      },
+      {
+        "command": "bbdev.stopServer",
+        "title": "Stop Server"
+      },
+      {
+        "command": "bbdev.openInBrowser",
+        "title": "Open in Browser"
+      },
+      {
+        "command": "bbdev.savePreset",
+        "title": "Save as Preset"
+      },
+      {
+        "command": "bbdev.deletePreset",
+        "title": "Delete Preset"
+      },
+      {
+        "command": "bbdev.editPreset",
+        "title": "Edit Preset"
+      },
+      {
+        "command": "bbdev.executePreset",
+        "title": "Execute Preset"
+      },
+      {
+        "command": "bbdev.duplicatePreset",
+        "title": "Duplicate Preset"
+      },
+      {
+        "command": "bbdev.exportPresets",
+        "title": "Export Presets"
+      },
+      {
+        "command": "bbdev.importPresets",
+        "title": "Import Presets"
+      },
+      {
+        "command": "bbdev.createPreset",
+        "title": "Create New Preset"
+      },
+      {
+        "command": "bbdev.showOutput",
+        "title": "Show Output"
+      },
+      {
+        "command": "bbdev.clearOutput",
+        "title": "Clear Output"
+      },
+      {
+        "command": "bbdev.validateInstallation",
+        "title": "Validate BBDev Installation"
+      },
+      {
+        "command": "bbdev.validateWorkspace",
+        "title": "Validate Workspace"
+      },
+      {
+        "command": "bbdev.showCommandHelp",
+        "title": "Show Command Help"
+      },
+      {
+        "command": "bbdev.stopAllServers",
+        "title": "Stop All Servers"
+      },
+      {
+        "command": "bbdev.startServerWithPortSelection",
+        "title": "Start Server (Select Port)"
+      },
+      {
+        "command": "bbdev.refreshServerStatus",
+        "title": "Refresh Server Status"
+      },
+      {
+        "command": "bbdev.runSetupWizard",
+        "title": "Run Setup Wizard"
+      },
+      {
+        "command": "bbdev.showSetupGuide",
+        "title": "Show Setup Guide"
+      },
+      {
+        "command": "bbdev.showServerStatus",
+        "title": "Show Server Status",
+        "icon": "$(server-process)"
+      },
+      {
+        "command": "bbdev.stopAllServers",
+        "title": "Stop All Servers"
+      },
+      {
+        "command": "bbdev.refreshServers",
+        "title": "Refresh Server Status",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "bbdev.executeWithFile",
+        "title": "BBDev: Execute with File"
+      },
+      {
+        "command": "bbdev.executeWithDirectory",
+        "title": "BBDev: Execute with Directory"
+      },
+      {
+        "command": "bbdev.quickCommand",
+        "title": "BBDev: Quick Command",
+        "category": "BBDev"
+      },
+      {
+        "command": "bbdev.manageFavorites",
+        "title": "BBDev: Manage Favorites",
+        "category": "BBDev"
+      },
+      {
+        "command": "bbdev.clearRecentCommands",
+        "title": "BBDev: Clear Recent Commands",
+        "category": "BBDev"
+      },
+      {
+        "command": "bbdev.searchOutput",
+        "title": "BBDev: Search Output",
+        "category": "BBDev",
+        "icon": "$(search)"
+      },
+      {
+        "command": "bbdev.filterOutput",
+        "title": "BBDev: Filter Output",
+        "category": "BBDev",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "bbdev.exportOutput",
+        "title": "BBDev: Export Output",
+        "category": "BBDev",
+        "icon": "$(export)"
+      },
+      {
+        "command": "bbdev.configureOutput",
+        "title": "BBDev: Configure Output",
+        "category": "BBDev",
+        "icon": "$(settings-gear)"
+      },
+      {
+        "command": "bbdev.viewOperationHistory",
+        "title": "BBDev: View Operation History",
+        "category": "BBDev",
+        "icon": "$(history)"
+      },
+      {
+        "command": "bbdev.clearOperationHistory",
+        "title": "BBDev: Clear Operation History",
+        "category": "BBDev"
+      },
+      {
+        "command": "bbdev.exportOperationHistory",
+        "title": "BBDev: Export Operation History",
+        "category": "BBDev",
+        "icon": "$(export)"
+      },
+      {
+        "command": "bbdev.configureNotifications",
+        "title": "BBDev: Configure Notifications",
+        "category": "BBDev",
+        "icon": "$(bell)"
+      },
+      {
+        "command": "bbdev.viewActiveOperations",
+        "title": "BBDev: View Active Operations",
+        "category": "BBDev",
+        "icon": "$(loading~spin)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "bbdev.refreshCommands",
+          "when": "view == bbdevCommands",
+          "group": "navigation"
+        },
+        {
+          "command": "bbdev.showServerStatus",
+          "when": "view == bbdevCommands",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "bbdev.executeOperation",
+          "when": "view == bbdevCommands && viewItem == bbdev-operation"
+        },
+        {
+          "command": "bbdev.startServer",
+          "when": "view == bbdevCommands && viewItem == server-stopped"
+        },
+        {
+          "command": "bbdev.stopServer",
+          "when": "view == bbdevCommands && viewItem == server-running"
+        },
+        {
+          "command": "bbdev.openInBrowser",
+          "when": "view == bbdevCommands && viewItem == server-running"
+        },
+        {
+          "command": "bbdev.savePreset",
+          "when": "view == bbdevCommands && viewItem == bbdev-operation"
+        },
+        {
+          "command": "bbdev.executePreset",
+          "when": "view == bbdevCommands && viewItem == preset"
+        },
+        {
+          "command": "bbdev.editPreset",
+          "when": "view == bbdevCommands && viewItem == preset"
+        },
+        {
+          "command": "bbdev.duplicatePreset",
+          "when": "view == bbdevCommands && viewItem == preset"
+        },
+        {
+          "command": "bbdev.deletePreset",
+          "when": "view == bbdevCommands && viewItem == preset"
+        },
+        {
+          "command": "bbdev.showOutput",
+          "when": "view == bbdevCommands && viewItem == bbdev-operation"
+        },
+        {
+          "command": "bbdev.clearOutput",
+          "when": "view == bbdevCommands && viewItem == bbdev-operation"
+        },
+        {
+          "command": "bbdev.startServer",
+          "when": "view == bbdevCommands && viewItem == no-servers"
+        },
+        {
+          "command": "bbdev.refreshServers",
+          "when": "view == bbdevCommands && viewItem == servers-section"
+        },
+        {
+          "command": "bbdev.stopAllServers",
+          "when": "view == bbdevCommands && viewItem == servers-section"
+        },
+        {
+          "command": "bbdev.importPresets",
+          "when": "view == bbdevCommands && viewItem == presets-section"
+        },
+        {
+          "command": "bbdev.exportPresets",
+          "when": "view == bbdevCommands && viewItem == presets-section"
+        },
+        {
+          "command": "bbdev.createPreset",
+          "when": "view == bbdevCommands && viewItem == presets-section"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "bbdev.executeWithFile",
+          "when": "resourceExtname == .c || resourceExtname == .cpp || resourceExtname == .cc || resourceExtname == .cxx || resourceExtname == .h || resourceExtname == .hpp || resourceExtname == .hh || resourceExtname == .hxx",
+          "group": "bbdev@1"
+        },
+        {
+          "command": "bbdev.executeWithFile",
+          "when": "resourceExtname == .s || resourceExtname == .S || resourceExtname == .asm",
+          "group": "bbdev@2"
+        },
+        {
+          "command": "bbdev.executeWithFile",
+          "when": "resourceExtname == .json || resourceExtname == .yaml || resourceExtname == .yml",
+          "group": "bbdev@3"
+        },
+        {
+          "command": "bbdev.executeWithFile",
+          "when": "resourceExtname == .md || resourceExtname == .rst || resourceExtname == .txt",
+          "group": "bbdev@4"
+        },
+        {
+          "command": "bbdev.executeWithFile",
+          "when": "resourceExtname == .py",
+          "group": "bbdev@5"
+        },
+        {
+          "command": "bbdev.executeWithDirectory",
+          "when": "explorerResourceIsFolder",
+          "group": "bbdev@6"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "bbdev.validateInstallation",
+          "when": "workspaceHasFolder"
+        },
+        {
+          "command": "bbdev.validateWorkspace",
+          "when": "workspaceHasFolder"
+        },
+        {
+          "command": "bbdev.runSetupWizard",
+          "when": "workspaceHasFolder"
+        },
+        {
+          "command": "bbdev.showCommandHelp"
+        },
+        {
+          "command": "bbdev.stopAllServers"
+        },
+        {
+          "command": "bbdev.startServerWithPortSelection",
+          "when": "workspaceHasFolder"
+        },
+        {
+          "command": "bbdev.refreshServerStatus"
+        },
+        {
+          "command": "bbdev.showSetupGuide",
+          "when": "workspaceHasFolder"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "BBDev",
+      "properties": {
+        "bbdev.defaultPort": {
+          "type": "number",
+          "default": 8080,
+          "description": "Default port for bbdev server"
+        },
+        "bbdev.autoStartServer": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically start bbdev server on extension activation"
+        },
+        "bbdev.showOutputOnExecution": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show output panel when executing commands"
+        },
+        "bbdev.bbdevPath": {
+          "type": "string",
+          "default": "bbdev",
+          "description": "Path to bbdev executable"
+        },
+        "bbdev.performInitialValidation": {
+          "type": "boolean",
+          "default": true,
+          "description": "Perform validation check when extension starts"
+        },
+        "bbdev.showValidationNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show notifications for validation issues"
+        },
+        "bbdev.autoFixValidationIssues": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically attempt to fix validation issues when possible"
+        },
+        "bbdev.validationLevel": {
+          "type": "string",
+          "enum": ["strict", "normal", "minimal"],
+          "default": "normal",
+          "description": "Level of validation to perform (strict includes all checks, minimal only critical ones)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack --mode development",
+    "compile:prod": "webpack --mode production",
+    "watch": "webpack --mode development --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts --fix",
+    "lint:check": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "test:unit": "npm run compile-tests && mocha out/test/unit/**/*.test.js",
+    "test:integration": "npm run compile-tests && node ./out/test/runTest.js",
+    "clean": "rimraf out *.vsix",
+    "build": "npm run clean && npm run compile:prod",
+    "package:vsix": "npm run build && vsce package",
+    "publish": "npm run package:vsix && vsce publish",
+    "install:local": "npm run package:vsix && code --install-extension bbdev-vscode-extension-*.vsix",
+    "dev": "npm run compile && npm run watch",
+    "build:script": "node scripts/build.js",
+    "release:patch": "node scripts/release.js patch",
+    "release:minor": "node scripts/release.js minor",
+    "release:major": "node scripts/release.js major",
+    "setup:dev": "node scripts/setup-dev.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@types/mocha": "^10.0.1",
+    "@types/glob": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "ts-loader": "^9.4.1",
+    "@vscode/test-electron": "^2.2.0",
+    "@vscode/vsce": "^2.15.0",
+    "mocha": "^10.1.0",
+    "glob": "^8.0.3",
+    "rimraf": "^3.0.2",
+    "terser-webpack-plugin": "^5.3.6"
+  },
+  "dependencies": {
+    "axios": "^1.2.0"
+  }
+}
