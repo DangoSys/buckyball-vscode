@@ -3,19 +3,83 @@
   "displayName": "bbdev",
   "description": "Deployment toolchain for Buckyball",
   "version": "0.0.1",
+  "publisher": "shiroha",
   "engines": {
-    "vscode": "^1.105.0"
+    "vscode": "^1.93.0"
   },
-  "categories": [
-    "Other"
+  "icon": "images/icon.png",
+  "license": "Apache-2.0",
+  "categories": ["Other"],
+  "activationEvents": [
+    "onCommand:bbdev.helloWorld",
+    "workspaceContains:package.json"
   ],
-  "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "bbdev.helloWorld",
-        "title": "Hello World"
+        "title": "BBDev: Hello World"
+      },
+      {
+        "command": "bbdev.getText",
+        "title": "BBDev: Get Editor Text"
+      },
+      {
+        "command": "bbdev.showInput",
+        "title": "BBDev: Show Input Box"
+      },
+      {
+        "command": "bbdev.demo",
+        "title": "BBDev: Demo All Features"
+      },
+      {
+        "command": "bbdev.openWebview",
+        "title": "BBDev: Open Dashboard",
+        "icon": "$(dashboard)"
+      },
+      {
+        "command": "bbdev.refreshTreeView",
+        "title": "BBDev: Refresh Tree View",
+        "icon": "$(refresh)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "bbdev-sidebar",
+          "title": "BBDev",
+          "icon": "$(tools)"
+        }
+      ]
+    },
+    "views": {
+      "bbdev-sidebar": [
+        {
+          "id": "bbdevTreeView",
+          "name": "Build Tools"
+        }
+      ]
+    }
+  },
+  "menus": {
+    "editor/context": [
+      {
+        "command": "bbdev.helloWorld",
+        "group": "navigation",
+        "when": "editorLangId == javascript"
+      }
+    ],
+    "view/title": [
+      {
+        "command": "bbdev.refreshTreeView",
+        "when": "view == bbdevTreeView",
+        "group": "navigation"
+      },
+      {
+        "command": "bbdev.openWebview",
+        "when": "view == bbdevTreeView",
+        "group": "navigation"
       }
     ]
   },
@@ -45,5 +109,11 @@
     "typescript": "^5.9.3",
     "@vscode/test-cli": "^0.0.11",
     "@vscode/test-electron": "^2.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DangoSys/buckyball-vscode.git"
   }
 }
+
+
