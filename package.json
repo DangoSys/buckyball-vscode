@@ -3,19 +3,46 @@
   "displayName": "bbdev",
   "description": "Deployment toolchain for Buckyball",
   "version": "0.0.1",
-  "publisher": "shiroha",
+  "publisher": "buckyball",
   "engines": {
     "vscode": "^1.93.0"
   },
   "icon": "images/icon.png",
   "license": "Apache-2.0",
-  "categories": ["Other"],
+  "categories": [
+    "Other"
+  ],
   "activationEvents": [
     "onCommand:bbdev.helloWorld",
     "workspaceContains:package.json"
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "BBDev AI Assistant",
+      "properties": {
+        "bbdev.ai.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API Key for AI service"
+        },
+        "bbdev.ai.baseUrl": {
+          "type": "string",
+          "default": "https://api.deepseek.com/v1",
+          "description": "Base URL for AI API"
+        },
+        "bbdev.ai.model": {
+          "type": "string",
+          "default": "deepseek-chat",
+          "description": "AI model to use"
+        },
+        "bbdev.ai.workflowUrl": {
+          "type": "string",
+          "default": "http://localhost:3000",
+          "description": "Workflow backend URL"
+        }
+      }
+    },
     "commands": [
       {
         "command": "bbdev.helloWorld",
@@ -35,8 +62,8 @@
       },
       {
         "command": "bbdev.openWebview",
-        "title": "BBDev: Open Dashboard",
-        "icon": "$(dashboard)"
+        "title": "BBDev: AI Chat Assistant",
+        "icon": "$(comment-discussion)"
       },
       {
         "command": "bbdev.refreshTreeView",
@@ -115,5 +142,3 @@
     "url": "https://github.com/DangoSys/buckyball-vscode.git"
   }
 }
-
-
